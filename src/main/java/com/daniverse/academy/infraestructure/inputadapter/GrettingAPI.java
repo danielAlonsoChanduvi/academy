@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class GrettingAPI {
 
-    @GetMapping("/greetings")
+    @GetMapping(value = "/greetings", produces = "application/json")
     public String getGrettings() {
         return "Hello, here is DanielVerse";
     }

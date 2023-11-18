@@ -17,32 +17,32 @@ public class StudentAPI {
     @Autowired
     private StudentInputPort studentInputPort;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public List<Student> getAllStudent() {
         return studentInputPort.getAllStudents();
     }
 
-    @PostMapping
+    @PostMapping(produces = "application/json",consumes = "application/json")
     public String addStudent( @Valid @RequestBody StudentRequest studentRequest) {
         return studentInputPort.addStudent(studentRequest);
     }
 
-    @DeleteMapping("/{documentNumber}")
+    @DeleteMapping(value = "/{documentNumber}", produces = "application/json")
     public String removeStudent(@PathVariable  String documentNumber) {
         return studentInputPort.removeStudent(documentNumber);
     }
 
-    @GetMapping("/namestudent/{nameStudent}")
+    @GetMapping(value = "/namestudent/{nameStudent}", produces = "application/json")
     public List<Student> getStudentByName(@PathVariable String nameStudent) {
         return studentInputPort.getStudentByName(nameStudent);
     }
 
-    @GetMapping("/documentnumber/{documentNumber}")
+    @GetMapping(value = "/documentnumber/{documentNumber}", produces = "application/json")
     public Student getStudentByDocumentNumber(@PathVariable String documentNumber) {
         return studentInputPort.getStudentByDocumentNumber(documentNumber);
     }
 
-    @PostMapping("/familiar/{idStudent}")
+    @PostMapping(value = "/familiar/{idStudent}", produces = "application/json")
     public String addFamiliarToStudent(
             @PathVariable String idStudent,
             @RequestBody Familiar familiar
@@ -50,7 +50,7 @@ public class StudentAPI {
         return studentInputPort.addFamiliarToStudent(idStudent,familiar);
     }
 
-    @GetMapping("/familiar/{idStudent}")
+    @GetMapping(value = "/familiar/{idStudent}", produces = "application/json")
     public List<Familiar> getFamiliarByStudent(@PathVariable String idStudent) {
         return studentInputPort.getFamiliarByStudent(idStudent);
     }
