@@ -3,9 +3,11 @@ package com.daniverse.academy.infraestructure.inputadapter;
 import com.daniverse.academy.domain.Familiar;
 import com.daniverse.academy.domain.Student;
 import com.daniverse.academy.infraestructure.inputport.StudentInputPort;
+import com.daniverse.academy.infraestructure.model.StudentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,8 @@ public class StudentAPI {
     }
 
     @PostMapping
-    public String addStudent(@RequestBody Student student) {
-        return studentInputPort.addStudent(student);
+    public String addStudent( @Valid @RequestBody StudentRequest studentRequest) {
+        return studentInputPort.addStudent(studentRequest);
     }
 
     @DeleteMapping("/{documentNumber}")

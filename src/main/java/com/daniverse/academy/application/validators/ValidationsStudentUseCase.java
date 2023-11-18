@@ -1,8 +1,8 @@
-package com.daniverse.academy.application.util;
+package com.daniverse.academy.application.validators;
 
 import com.daniverse.academy.domain.Familiar;
-import com.daniverse.academy.domain.Student;
 import com.daniverse.academy.infraestructure.exceptionhandler.BussinesRequestException;
+import com.daniverse.academy.infraestructure.model.StudentRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.List;
@@ -15,15 +15,15 @@ public class ValidationsStudentUseCase {
     @Value("#{'${values-application.tipofamiliares}'.split(',')}")
     private List<String> allowedFamiliares;
 
-    public void validateQuanitiyFamiliaresOfStudent(Student student) {
-        if (Objects.isNull(student.getFamiliares()) || student.getFamiliares().size() < 2) {
+    public void validateQuanitiyFamiliaresOfStudent(StudentRequest studentRequest) {
+        if (Objects.isNull(studentRequest.getFamiliares()) || studentRequest.getFamiliares().size() < 2) {
             throw new BussinesRequestException("BS001","El estudiante no tiene los familiares mínimos");
         }
     }
 
-    public void validateTipoFamiliares(Student student) {
+    public void validateTipoFamiliares(StudentRequest studentRequest) {
 
-        List<Familiar> familiares = student.getFamiliares();
+        List<Familiar> familiares = studentRequest.getFamiliares();
 
 
 

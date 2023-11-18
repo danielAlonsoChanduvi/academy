@@ -1,16 +1,16 @@
 package com.daniverse.academy.application;
 
-import com.daniverse.academy.application.util.ValidationsStudentUseCase;
+import com.daniverse.academy.application.mapper.StudentMapper;
+import com.daniverse.academy.application.validators.ValidationsStudentUseCase;
 import com.daniverse.academy.domain.Familiar;
 import com.daniverse.academy.domain.Student;
 import com.daniverse.academy.infraestructure.exceptionhandler.BussinesRequestException;
 import com.daniverse.academy.infraestructure.inputport.StudentInputPort;
+import com.daniverse.academy.infraestructure.model.StudentRequest;
 import com.daniverse.academy.infraestructure.outputport.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +19,9 @@ public class StudentUseCase implements StudentInputPort {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Autowired
     private ValidationsStudentUseCase validationsStudentUseCase;
@@ -49,14 +52,16 @@ public class StudentUseCase implements StudentInputPort {
     }
 
     @Override
-    public String addStudent(Student student) {
-        validationsStudentUseCase.validateQuanitiyFamiliaresOfStudent(student);
-        validationsStudentUseCase.validateTipoFamiliares(student);
+    public String addStudent(StudentRequest studentRequest) {
+        validationsStudentUseCase.validateQuanitiyFamiliaresOfStudent(studentRequest);
+        validationsStudentUseCase.validateTipoFamiliares(studentRequest);
+        
+        Student student = studentMapper.studentRequestToStudent(studentRequest);
 
-        student.setBirthdate(LocalDateTime.now());
         studentRepository.save(student);
         return "Student added";
     }
+
 
     @Override
     public String removeStudent(String documentNumber) {
