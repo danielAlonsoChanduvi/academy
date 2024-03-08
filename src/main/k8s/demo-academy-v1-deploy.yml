@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: academy-v1-deploy
+  labels:
+    name: academy-v1-deploy
+    app: academy-v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: academy-v1-pod
+      app: academy-v1
+  template:
+    metadata:
+      name: academy-v1-pod
+      labels:
+        name: academy-v1-pod
+        app: academy-v1
+    spec:
+      containers:
+        - name: academy-v1
+          image: 201388/academy-v1:latest
+          ports:
+            - containerPort: 8085

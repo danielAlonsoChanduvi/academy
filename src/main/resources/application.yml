@@ -1,2 +1,5 @@
 values-application:
   tipofamiliares: Madre,Padre,Hermano,Hermana,Conyuge
+
+server:
+  port: 8085
